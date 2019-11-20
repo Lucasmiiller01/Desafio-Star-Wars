@@ -1,48 +1,116 @@
-import React from "react";
-import { Grid, Typography, Box, makeStyles } from "@material-ui/core";
+import React, { Component, Fragment } from "react";
+import {
+  Grid,
+  Box,
+  withStyles,
+  createStyles,
+  CircularProgress
+} from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
+import { ApplicationState } from "../../store";
+import { Planet } from "../../store/ducks/planets/types";
+import * as PlanetsActions from "../../store/ducks/planets/actions";
 
-export default function PlanetMain() {
-    const classes = useStyles();
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
 
-    return (
-        <Box border={5} className={classes.root}>
-            <Grid item xs={12} className={classes.root}>
-                <Typography gutterBottom variant="h4" className={classes.title}>
-                    Planet Name
-                </Typography>
-                <Box borderTop={5} className={classes.borderTitle}/>
-                
-                <Typography gutterBottom variant="h6" >
-                    Population: 200000
-                </Typography>
+import DescriptionItem from "./DescriptionItem";
 
-                <Typography gutterBottom variant="h6">
-                    Climate: ARID
-                </Typography>
-
-                <Typography gutterBottom variant="h6">
-                    TERRAIN: DESERT
-                </Typography>
-
-                <Typography gutterBottom variant="h6">
-                    FEATURED IN N FILMS
-                </Typography>
-
-            </Grid>
-        </Box>
-    );
+interface StateProps {
+  classes?: any;
+  readonly planet: Planet | null;
+  readonly loading: boolean;
+  readonly error: boolean;
 }
 
-const useStyles = makeStyles({
+interface DispatchProps {
+  loadRequest(id: number): void;
+}
+
+interface OwnProps {}
+
+type Props = StateProps & DispatchProps & OwnProps;
+class PlanetMain extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    const { loadRequest } = this.props;
+    loadRequest(this.getRndInteger(1, 60));
+  }
+  componentDidMount() {}
+
+  getRndInteger(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  render() {
+    const { classes, planet, loading, error } = this.props;
+    return (
+      <Box border={!loading ? 5 : 0} className={classes.root}>
+        <Grid item xs={12} className={classes.root}>
+          {!loading && !error && planet ? (
+            <Fragment>
+              <DescriptionItem
+                text={planet.name}
+                variant="h4"
+                style={{ textAlign: "center" }}
+              />
+              <Box borderTop={5} className={classes.borderTitle} />
+
+              <DescriptionItem
+                text={planet.population}
+                label={"Population: "}
+                variant="h6"
+              />
+              <DescriptionItem
+                text={planet.climate}
+                label={"Climate: "}
+                variant="h6"
+              />
+
+              <DescriptionItem
+                text={planet.terrain}
+                label={"TERRAIN: "}
+                variant="h6"
+              />
+
+              <DescriptionItem
+                text={planet.films.length + " FILMS"}
+                label={"FEATURED IN "}
+                variant="h6"
+              />
+            </Fragment>
+          ) : (
+            <CircularProgress color="primary" />
+          )}
+        </Grid>
+      </Box>
+    );
+  }
+}
+
+const styles = (theme: Theme) =>
+  createStyles({
     root: {
-        margin: 20
+      margin: 20,
+      backgroundColor: "red"
     },
     borderTitle: {
-        marginLeft: -20,
-        marginRight: -20
-    },
-    title: {
-        textAlign: "center"
+      marginLeft: -20,
+      marginRight: -20
     }
+  });
+
+const mapStateToProps = (state: ApplicationState) => ({
+  planet: state.planets.data,
+  loading: state.planets.loading,
+  error: state.planets.error
 });
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(PlanetsActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(PlanetMain));
