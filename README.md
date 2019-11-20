@@ -1,3 +1,12 @@
+# Desafio-Star-Wars
+Desafio Técnico: Dev. Front End 
+
+# API
+siteUrl: https://swapi.co/
+
+baseUrlApi: https://swapi.co/api/
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
