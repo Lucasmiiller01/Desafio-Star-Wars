@@ -9,11 +9,14 @@ Para auxiliar quem for apresentar a brincadeira, queremos desenvolver uma aplica
 
 Para isso utilizei a [API SWAPI](https://swapi.co/)
 
-# Tecnologias Utilizadas
+# Tecnologias Utilizadas e Principais libs Utilizadas
 
 - Javascript (ES6)
 - TypeScript
 - [React.js](https://reactjs.org/)
+- Redux
+- Redux Saga
+- Material Ui
 - [API SWAPI](https://swapi.co/)
 
 # Acesso do projeto:
