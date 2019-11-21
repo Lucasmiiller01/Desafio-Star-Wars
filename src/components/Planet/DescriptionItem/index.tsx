@@ -5,18 +5,27 @@ interface OwnProps {
   label?: string;
   text: string;
   variant: any;
-  style?: object;
+  styleContainer?: object;
+  styleLabel?: object;
+  styleText?: object;
 }
 
 export default function DescriptionItem({
   text,
   variant,
   label = "",
-  style = {}
+  styleContainer = {},
+  styleLabel = {},
+  styleText = {}
 }: OwnProps) {
   return (
-    <Typography variant={variant} style={style}>
-      {label + text}
-    </Typography>
+    <div style={styleContainer}>
+      <Typography variant={variant} style={styleLabel}>
+        {label}
+      </Typography>
+      <Typography variant={variant} style={styleText}>
+        {text}
+      </Typography>
+    </div>
   );
 }
