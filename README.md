@@ -9,7 +9,7 @@ Para auxiliar quem for apresentar a brincadeira, queremos desenvolver uma aplica
 
 Para isso utilizei a [API SWAPI](https://swapi.co/)
 
-# Tecnologias Utilizadas e Principais libs Utilizadas
+# Tecnologias Utilizadas
 
 - Javascript (ES6)
 - TypeScript
