@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   Grid,
-  Box,
   withStyles,
   createStyles,
   CircularProgress
@@ -15,7 +14,10 @@ import * as PlanetsActions from "../../store/ducks/planets/actions";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import DescriptionItem from "./DescriptionItem";
+import BoxContent from "./boxContent";
+import randomNumberByRange from "../../shared/randomNumberByRange";
+
+import NextButton from "./nextButton";
 
 interface StateProps {
   classes?: any;
@@ -36,56 +38,28 @@ class PlanetMain extends Component<Props> {
     super(props);
 
     const { loadRequest } = this.props;
-    loadRequest(this.getRndInteger(1, 60));
+    loadRequest(randomNumberByRange(1, 60));
   }
   componentDidMount() {}
 
-  getRndInteger(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   render() {
-    const { classes, planet, loading, error } = this.props;
+    const { planet, loading, error, loadRequest } = this.props;
+    let RenderContent = null;
+    if (!loading && error) {
+      RenderContent = <h1> Ocorreu um erro, tente novamente mais tarde </h1>;
+    } else if (!loading && planet) {
+      RenderContent = <BoxContent planet={planet} />;
+    } else if (loading) {
+      RenderContent = <CircularProgress color="primary" />;
+    }
     return (
-      <Box border={!loading ? 5 : 0} className={classes.root}>
-        <Grid item xs={12} className={classes.root}>
-          {!loading && !error && planet ? (
-            <Fragment>
-              <DescriptionItem
-                text={planet.name}
-                variant="h4"
-                style={{ textAlign: "center" }}
-              />
-              <Box borderTop={5} className={classes.borderTitle} />
-
-              <DescriptionItem
-                text={planet.population}
-                label={"Population: "}
-                variant="h6"
-              />
-              <DescriptionItem
-                text={planet.climate}
-                label={"Climate: "}
-                variant="h6"
-              />
-
-              <DescriptionItem
-                text={planet.terrain}
-                label={"TERRAIN: "}
-                variant="h6"
-              />
-
-              <DescriptionItem
-                text={planet.films.length + " FILMS"}
-                label={"FEATURED IN "}
-                variant="h6"
-              />
-            </Fragment>
-          ) : (
-            <CircularProgress color="primary" />
-          )}
-        </Grid>
-      </Box>
+      <Grid container justify="center" alignItems="center" direction="column">
+        {RenderContent}
+        <NextButton
+          onPress={() => loadRequest(randomNumberByRange(1, 60))}
+          disabled={loading}
+        />
+      </Grid>
     );
   }
 }
@@ -94,11 +68,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       margin: 20,
-      backgroundColor: "red"
-    },
-    borderTitle: {
-      marginLeft: -20,
-      marginRight: -20
+      backgroundColor: "black"
     }
   });
 

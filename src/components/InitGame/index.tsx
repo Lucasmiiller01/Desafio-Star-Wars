@@ -32,7 +32,7 @@ class InitGame extends Component<Props> {
     document.addEventListener("keydown", this._handleKeyDown);
   }
 
-  componentWillUnmount() {
+  componentDidCatch() {
     document.removeEventListener("keydown", this._handleKeyDown);
   }
   render() {

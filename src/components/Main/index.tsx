@@ -31,6 +31,8 @@ const useStyles = makeStyles({
     height: "100vh"
   },
   dividerCopyRight: {
+    backgroundColor: "white",
+    height: 1,
     marginBottom: 20
   }
 });
