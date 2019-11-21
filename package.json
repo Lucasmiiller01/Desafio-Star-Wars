@@ -2,10 +2,6 @@
   "name": "starwars",
   "version": "1.0.0",
   "homepage": "https://lit-hamlet-61816.herokuapp.com",
-  "engines": {
-    "node": "11.6.0",
-    "npm": "6.11.3"
-  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.6.1",
