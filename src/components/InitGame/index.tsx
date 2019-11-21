@@ -30,10 +30,12 @@ class InitGame extends Component<Props> {
   };
   componentDidMount() {
     document.addEventListener("keydown", this._handleKeyDown);
+    document.addEventListener("click", this._handleKeyDown);
   }
 
   componentDidCatch() {
     document.removeEventListener("keydown", this._handleKeyDown);
+    document.removeEventListener("click", this._handleKeyDown);
   }
   render() {
     const { classes } = this.props;
