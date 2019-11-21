@@ -36,10 +36,9 @@ class InitGame extends Component<Props> {
     document.removeEventListener("keydown", this._handleKeyDown);
   }
   render() {
-    const { classes, started } = this.props;
-    console.log(started);
+    const { classes } = this.props;
     return (
-      <Grid item>
+      <Grid item className={classes.root}>
         <Fade in={true} timeout={4000} style={{ margin: 20 }}>
           <img src={StarWarsLogo} className={classes.imgLogo} alt="Logo" />
         </Fade>
@@ -52,12 +51,11 @@ class InitGame extends Component<Props> {
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      margin: 20,
-      backgroundColor: "red"
+      textAlign: "center"
     },
     imgLogo: {
-      maxWidth: 800,
-      maxHeight: 800
+      maxWidth: "50%",
+      maxHeight: "50%"
     },
     borderTitle: {
       marginLeft: -20,

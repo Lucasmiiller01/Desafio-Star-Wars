@@ -15,19 +15,25 @@ type Props = OwnProps;
 type State = StateProps;
 
 class TextFade extends Component<Props, State> {
+  public intervalID: any;
+
   constructor(props: Props) {
     super(props);
     this.state = {
       fadeIn: false
     };
-    const { interval } = props;
-
-    setInterval(() => {
-      this.setState({ fadeIn: !this.state.fadeIn });
-    }, interval);
   }
 
-  componentDidMount() {}
+  componentDidMount = () => {
+    const { interval } = this.props;
+    this.intervalID = setInterval(() => {
+      this.setState({ fadeIn: !this.state.fadeIn });
+    }, interval);
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.intervalID);
+  };
 
   render() {
     const { interval, text } = this.props;
