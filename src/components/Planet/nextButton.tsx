@@ -10,7 +10,7 @@ export default function NextButton(props: OwnProps) {
   const { onPress, disabled } = props;
   return (
     <Button
-      style={{ marginTop: 50, width: 500 }}
+      style={{ marginTop: 50 }}
       variant="text"
       onClick={onPress}
       disabled={disabled}
