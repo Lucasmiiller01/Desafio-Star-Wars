@@ -12,7 +12,7 @@ export default function BoxContent({ planet }: OwnProps) {
   const classes = useStyles();
 
   return (
-    <Box border={5} className={classes.root} borderRadius={20}>
+    <Box border={2} className={classes.root} borderRadius={20}>
       <Grid item xs={12} className={classes.root}>
         <DescriptionItem
           text={planet.name}
@@ -23,7 +23,7 @@ export default function BoxContent({ planet }: OwnProps) {
             color: "#FFF"
           }}
         />
-        <Box borderTop={5} className={classes.borderTitle} />
+        <Box borderTop={2} className={classes.borderTitle} />
 
         <DescriptionItem
           styleContainer={{
